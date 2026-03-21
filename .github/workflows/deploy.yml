@@ -32,6 +32,14 @@ jobs:
             --exclude "terraform/*" \
             --delete
 
+      - name: Fix SVG content-type
+        run: |
+          aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/assets/img/skills/ \
+            s3://${{ secrets.S3_BUCKET_NAME }}/assets/img/skills/ \
+            --recursive \
+            --content-type "image/svg+xml" \
+            --metadata-directive REPLACE
+
       - name: Set long cache on static assets
         run: |
           aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/assets/ \
