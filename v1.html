@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harish Daga — Data Analyst</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a192f;
+      --bg-card: #112240;
+      --bg-light: #1d3461;
+      --accent: #64ffda;
+      --accent2: #149ddd;
+      --text: #ccd6f6;
+      --text-body: #8892b0;
+      --nav-h: 70px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-body); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(10, 25, 47, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(100, 255, 218, 0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 800; color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--text-body); letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a .num { color: var(--accent); margin-right: 4px; }
+    .nav-resume-btn {
+      padding: 8px 20px; border: 1px solid var(--accent); border-radius: 4px;
+      color: var(--accent); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .nav-resume-btn:hover { background: rgba(100, 255, 218, 0.1); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--accent); transition: 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      background: var(--bg-card); z-index: 999; flex-direction: column;
+      align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.2rem; color: var(--text); font-weight: 600; }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    /* ===== LEFT FIXED SIDEBAR ===== */
+    .sidebar-left {
+      position: fixed; bottom: 0; left: 36px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      z-index: 100;
+    }
+    .sidebar-left a { color: var(--text-body); font-size: 1.2rem; transition: color 0.2s, transform 0.2s; }
+    .sidebar-left a:hover { color: var(--accent); transform: translateY(-3px); }
+    .sidebar-left::after {
+      content: ''; display: block; width: 1px; height: 90px;
+      background: var(--text-body); margin-top: 8px;
+    }
+    .sidebar-right {
+      position: fixed; bottom: 0; right: 36px;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      z-index: 100;
+    }
+    .sidebar-right a {
+      font-size: 0.72rem; letter-spacing: 3px; writing-mode: vertical-rl;
+      color: var(--text-body); transition: color 0.2s, transform 0.2s;
+      margin-bottom: 20px;
+    }
+    .sidebar-right a:hover { color: var(--accent); transform: translateY(-3px); }
+    .sidebar-right::after {
+      content: ''; display: block; width: 1px; height: 90px;
+      background: var(--text-body);
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 100px 0; max-width: 960px; margin: 0 auto; padding-left: 140px; padding-right: 140px; }
+    .section-title {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.6rem; font-weight: 700; color: var(--text);
+      margin-bottom: 48px; white-space: nowrap;
+    }
+    .section-title .num { color: var(--accent); font-size: 1rem; font-weight: 400; font-family: 'Courier New', monospace; }
+    .section-title::after {
+      content: ''; display: block; height: 1px; width: 240px;
+      background: var(--bg-light); flex-shrink: 0;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; padding-top: var(--nav-h);
+      max-width: 960px; margin: 0 auto; padding-left: 140px; padding-right: 140px;
+    }
+    .hero-greeting {
+      font-size: 0.95rem; color: var(--accent); font-family: 'Courier New', monospace;
+      margin-bottom: 20px; letter-spacing: 1px;
+    }
+    .hero-name {
+      font-size: clamp(40px, 7vw, 80px); font-weight: 800;
+      color: var(--text); line-height: 1.05; letter-spacing: -2px;
+    }
+    .hero-title {
+      font-size: clamp(32px, 5vw, 60px); font-weight: 700;
+      color: var(--text-body); line-height: 1.1; letter-spacing: -1px;
+      margin-top: 4px;
+    }
+    .hero-desc {
+      max-width: 520px; margin-top: 24px; font-size: 1rem;
+      color: var(--text-body); line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 14px 28px; border: 1px solid var(--accent); border-radius: 4px;
+      color: var(--accent); font-size: 0.9rem; font-weight: 500;
+      transition: background 0.2s; letter-spacing: 0.5px;
+    }
+    .btn-primary:hover { background: rgba(100, 255, 218, 0.1); }
+    .btn-secondary {
+      padding: 14px 28px; background: var(--accent); border-radius: 4px;
+      color: var(--bg); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+    .btn-secondary:hover { opacity: 0.85; }
+
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 48px; align-items: start; }
+    .about-text p { margin-bottom: 16px; font-size: 1rem; }
+    .about-text .highlight { color: var(--accent); }
+    .about-img-wrap {
+      position: relative; width: 100%; max-width: 280px; justify-self: center;
+    }
+    .about-img-wrap img {
+      width: 100%; border-radius: 4px; display: block;
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+    }
+    .about-img-wrap:hover img { filter: none; }
+    .about-img-wrap::before {
+      content: ''; position: absolute; top: 12px; left: 12px;
+      width: 100%; height: 100%; border: 2px solid var(--accent); border-radius: 4px;
+      z-index: -1; transition: top 0.3s, left 0.3s;
+    }
+    .about-img-wrap:hover::before { top: 6px; left: 6px; }
+
+    /* ===== SKILLS ===== */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .skill-card {
+      background: var(--bg-card); border-radius: 8px; padding: 28px;
+      border: 1px solid rgba(100, 255, 218, 0.05);
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .skill-header img { width: 36px; height: 36px; object-fit: contain; }
+    .skill-name { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-size: 0.72rem; padding: 3px 10px; border-radius: 2px;
+      background: rgba(100, 255, 218, 0.08); color: var(--accent);
+      border: 1px solid rgba(100, 255, 218, 0.15); font-family: 'Courier New', monospace;
+    }
+    .other-tools { margin-top: 24px; display: flex; align-items: center; gap: 20px; }
+    .other-tools span { color: var(--text-body); font-size: 0.9rem; }
+    .tool-icon { display: flex; align-items: center; gap: 6px; color: var(--text-body); font-size: 0.85rem; }
+    .tool-icon img { width: 24px; height: 24px; object-fit: contain; }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid { display: flex; flex-direction: column; gap: 80px; }
+    .project-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: center; }
+    .project-card:nth-child(even) .project-img { order: 2; }
+    .project-card:nth-child(even) .project-info { order: 1; text-align: right; }
+    .project-card:nth-child(even) .project-info .proj-links { justify-content: flex-end; }
+    .project-card:nth-child(even) .project-info .proj-tags { justify-content: flex-end; }
+    .project-img {
+      position: relative; border-radius: 4px; overflow: hidden;
+      box-shadow: -20px 20px 60px rgba(0,0,0,0.5);
+    }
+    .project-img img { width: 100%; display: block; filter: brightness(0.6) hue-rotate(0deg); transition: filter 0.3s; }
+    .project-img:hover img { filter: none; }
+    .project-info { position: relative; padding: 20px; z-index: 1; }
+    .proj-overline { font-size: 0.78rem; color: var(--accent); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+    .proj-title { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .proj-desc-box {
+      background: var(--bg-card); border-radius: 4px; padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 16px;
+      font-size: 0.9rem; line-height: 1.7;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 0.75rem; color: var(--text-body); font-family: 'Courier New', monospace; }
+    .proj-links { display: flex; gap: 16px; }
+    .proj-links a { color: var(--text-body); font-size: 1.1rem; transition: color 0.2s; }
+    .proj-links a:hover { color: var(--accent); }
+
+    /* ===== EXPERIENCE & EDUCATION ===== */
+    .exp-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .subsection-title { font-size: 1rem; font-weight: 600; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; font-family: 'Courier New', monospace; }
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--bg-light); }
+    .timeline-item { position: relative; margin-bottom: 36px; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -28px; top: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); border: 2px solid var(--bg);
+    }
+    .tl-date { font-size: 0.75rem; color: var(--accent); font-family: 'Courier New', monospace; margin-bottom: 4px; }
+    .tl-role { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .tl-company { font-size: 0.85rem; color: var(--accent2); margin-bottom: 10px; }
+    .tl-points { list-style: none; }
+    .tl-points li { font-size: 0.88rem; padding: 3px 0; padding-left: 16px; position: relative; }
+    .tl-points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ===== CERTIFICATES ===== */
+    .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .cert-card {
+      background: var(--bg-card); border-radius: 8px; padding: 24px;
+      border: 1px solid rgba(100, 255, 218, 0.05);
+      transition: border-color 0.3s, transform 0.2s;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .cert-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .cert-logo img { height: 32px; object-fit: contain; }
+    .cert-name { font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .cert-issuer { font-size: 0.8rem; color: var(--text-body); }
+    .cert-link {
+      margin-top: auto; font-size: 0.8rem; color: var(--accent);
+      display: flex; align-items: center; gap: 6px; transition: gap 0.2s;
+    }
+    .cert-link:hover { gap: 10px; }
+
+    /* ===== CONTACT ===== */
+    #contact { text-align: center; max-width: 600px; }
+    #contact .section-title { justify-content: center; }
+    #contact .section-title::after { display: none; }
+    .contact-overline { font-size: 0.85rem; color: var(--accent); font-family: 'Courier New', monospace; margin-bottom: 16px; }
+    .contact-heading { font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: var(--text); margin-bottom: 20px; }
+    .contact-desc { font-size: 1rem; color: var(--text-body); margin-bottom: 40px; line-height: 1.8; }
+    .contact-email-btn {
+      display: inline-block; padding: 16px 36px;
+      border: 1px solid var(--accent); border-radius: 4px; color: var(--accent);
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .contact-email-btn:hover { background: rgba(100, 255, 218, 0.1); }
+    .contact-links { display: flex; justify-content: center; gap: 24px; margin-top: 40px; }
+    .contact-links a { color: var(--text-body); font-size: 1.4rem; transition: color 0.2s, transform 0.2s; }
+    .contact-links a:hover { color: var(--accent); transform: translateY(-3px); }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; padding: 24px; font-size: 0.78rem; color: var(--text-body); border-top: 1px solid rgba(255,255,255,0.04); }
+    footer a { color: var(--accent); }
+
+    /* ===== FADE IN ===== */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      section { padding-left: 60px; padding-right: 60px; }
+      #hero { padding-left: 60px; padding-right: 60px; }
+      .sidebar-left, .sidebar-right { display: none; }
+    }
+    @media (max-width: 768px) {
+      section { padding-left: 24px; padding-right: 24px; }
+      #hero { padding-left: 24px; padding-right: 24px; }
+      nav { padding: 0 24px; }
+      .nav-links, .nav-resume-btn { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img-wrap { max-width: 220px; margin: 0 auto; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-card:nth-child(even) .project-img { order: 0; }
+      .project-card:nth-child(even) .project-info { order: 0; text-align: left; }
+      .project-card:nth-child(even) .project-info .proj-links { justify-content: flex-start; }
+      .project-card:nth-child(even) .project-info .proj-tags { justify-content: flex-start; }
+      .exp-edu-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .section-title::after { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">H<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about"><span class="num">01.</span>About</a></li>
+      <li><a href="#skills"><span class="num">02.</span>Skills</a></li>
+      <li><a href="#projects"><span class="num">03.</span>Projects</a></li>
+      <li><a href="#experience"><span class="num">04.</span>Experience</a></li>
+      <li><a href="#certificates"><span class="num">05.</span>Certificates</a></li>
+      <li><a href="#contact"><span class="num">06.</span>Contact</a></li>
+    </ul>
+    <a href="harish_daga_resume.pdf" class="nav-resume-btn" target="_blank">Resume</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobileMenu()">01. About</a>
+    <a href="#skills" onclick="closeMobileMenu()">02. Skills</a>
+    <a href="#projects" onclick="closeMobileMenu()">03. Projects</a>
+    <a href="#experience" onclick="closeMobileMenu()">04. Experience</a>
+    <a href="#certificates" onclick="closeMobileMenu()">05. Certificates</a>
+    <a href="#contact" onclick="closeMobileMenu()">06. Contact</a>
+    <a href="harish_daga_resume.pdf" target="_blank">Resume</a>
+  </div>
+
+  <!-- SIDEBAR LEFT -->
+  <div class="sidebar-left">
+    <a href="https://github.com/Harishdaga" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/harishdaga" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+    <a href="https://public.tableau.com/app/profile/harish.daga/vizzes" target="_blank" title="Tableau"><i class="bi bi-bar-chart-fill"></i></a>
+    <a href="mailto:mrharishdaga@gmail.com" title="Email"><i class="bi bi-envelope-fill"></i></a>
+  </div>
+
+  <!-- SIDEBAR RIGHT -->
+  <div class="sidebar-right">
+    <a href="mailto:mrharishdaga@gmail.com">mrharishdaga@gmail.com</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-greeting fade-in">Hi, my name is</p>
+    <h1 class="hero-name fade-in">Harish Daga.</h1>
+    <h2 class="hero-title fade-in">I turn data into decisions.</h2>
+    <p class="hero-desc fade-in">
+      I'm a <span style="color:var(--accent)">Data Analyst</span> specializing in Tableau, PostgreSQL, Python, and Excel.
+      I craft compelling data stories and build dashboards that drive real business impact.
+    </p>
+    <div class="hero-cta fade-in">
+      <a href="#projects" class="btn-primary">See My Work</a>
+      <a href="harish_daga_resume.pdf" class="btn-secondary" target="_blank">Download Resume</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title fade-in"><span class="num">01.</span> About Me</h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>Hello! I'm <span class="highlight">Harish Daga</span>, a Data Analyst based in <span class="highlight">Bikaner</span>. I have a passion for uncovering insights hidden within data and presenting them in a clear, actionable way.</p>
+        <p>I bring diverse skills in <span class="highlight">Data Preparation & Visualization</span>, Data Analysis & Reporting, Data Quality Management, Business Intelligence, and Statistical Analysis.</p>
+        <p>My technical toolkit includes <span class="highlight">Tableau, PostgreSQL, Python</span>, and Excel, with hands-on experience in Machine Learning. I love turning complex datasets into dashboards that tell a story.</p>
+        <p>Here are a few technologies I've been working with recently:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:12px;">
+          <span style="font-size:0.82rem;color:var(--text-body);padding-left:16px;position:relative">
+            <span style="position:absolute;left:0;color:var(--accent)">▸</span> Tableau
+          </span>
+          <span style="font-size:0.82rem;color:var(--text-body);padding-left:16px;position:relative">
+            <span style="position:absolute;left:0;color:var(--accent)">▸</span> Python (Pandas, NumPy)
+          </span>
+          <span style="font-size:0.82rem;color:var(--text-body);padding-left:16px;position:relative">
+            <span style="position:absolute;left:0;color:var(--accent)">▸</span> PostgreSQL
+          </span>
+          <span style="font-size:0.82rem;color:var(--text-body);padding-left:16px;position:relative">
+            <span style="position:absolute;left:0;color:var(--accent)">▸</span> Excel & Power Query
+          </span>
+        </div>
+      </div>
+      <div class="about-img-wrap">
+        <img src="assets/img/profile-img2.png" alt="Harish Daga" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="section-title fade-in"><span class="num">02.</span> Skills</h2>
+    <div class="skills-grid fade-in">
+      <div class="skill-card">
+        <div class="skill-header">
+          <img src="assets/img/skills/tableau.svg" width="36" height="36" alt="Tableau" />
+          <div class="skill-name">Tableau</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Modelling</span>
+          <span class="skill-tag">Visualization</span>
+          <span class="skill-tag">Parameters</span>
+          <span class="skill-tag">Table Calculations</span>
+          <span class="skill-tag">LODs</span>
+          <span class="skill-tag">Dynamic Zone Visibility</span>
+          <span class="skill-tag">Tableau × Figma</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <img src="assets/img/skills/postgresql.svg" width="36" height="36" alt="PostgreSQL" />
+          <div class="skill-name">PostgreSQL</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">DDL</span>
+          <span class="skill-tag">DML</span>
+          <span class="skill-tag">DQL</span>
+          <span class="skill-tag">Stored Procedures</span>
+          <span class="skill-tag">Window Functions</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">pgAdmin</span>
+          <span class="skill-tag">TablePlus</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <img src="assets/img/skills/excel.svg" width="36" height="36" alt="Excel" />
+          <div class="skill-name">Excel</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Pivot Tables</span>
+          <span class="skill-tag">Power Query</span>
+          <span class="skill-tag">Visualization</span>
+          <span class="skill-tag">What-If Analysis</span>
+          <span class="skill-tag">Forecasting</span>
+          <span class="skill-tag">Statistical Analysis</span>
+          <span class="skill-tag">Dashboards</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <img src="assets/img/skills/python.svg" width="36" height="36" alt="Python" />
+          <div class="skill-name">Python</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Predictive Analysis</span>
+        </div>
+      </div>
+    </div>
+    <div class="other-tools fade-in">
+      <span>Other Tools:</span>
+      <div class="tool-icon"><img src="assets/img/skills/git.svg" width="24" height="24" alt="Git" /> Git</div>
+      <div class="tool-icon"><img src="assets/img/skills/vscode.svg" width="24" height="24" alt="VS Code" /> VS Code</div>
+      <div class="tool-icon"><img src="assets/img/skills/jira.svg" width="24" height="24" alt="Jira" /> Jira</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title fade-in"><span class="num">03.</span> Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="assets/img/projects/netflix_deshboard.png" alt="Netflix Dashboard" />
+        </div>
+        <div class="project-info">
+          <p class="proj-overline">Featured Project</p>
+          <h3 class="proj-title">Netflix — Movies & TV Analysis</h3>
+          <div class="proj-desc-box">
+            Interactive Tableau dashboard analyzing Netflix's content library — exploring genre trends, geographic distribution, release patterns, and content ratings across Movies and TV Shows.
+          </div>
+          <div class="proj-tags">
+            <span>Tableau</span><span>Data Visualization</span><span>EDA</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Harishdaga/projects/tree/main/tableau/netflix_dashboard" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://public.tableau.com/views/NetflixAnalysis_17119029214180/Netflix" target="_blank" title="Live"><i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="assets/img/projects/BritishAirwaysDeshboard.png" alt="British Airways Dashboard" />
+        </div>
+        <div class="project-info">
+          <p class="proj-overline">Featured Project</p>
+          <h3 class="proj-title">British Airways — Customer Reviews</h3>
+          <div class="proj-desc-box">
+            Tableau dashboard analyzing British Airways customer review data — covering seat ratings, food quality, entertainment scores, and overall satisfaction segmented by aircraft type and route.
+          </div>
+          <div class="proj-tags">
+            <span>Tableau</span><span>Customer Analytics</span><span>Dashboard</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Harishdaga/projects/tree/main/tableau/British%20Airways%20Reviews" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://public.tableau.com/views/BritishAirwaysReviewsAnalysis_17119793954210/Dashboard1" target="_blank" title="Live"><i class="bi bi-box-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="assets/img/projects/pizzahut.png" alt="Pizza Hut Sales" />
+        </div>
+        <div class="project-info">
+          <p class="proj-overline">Featured Project</p>
+          <h3 class="proj-title">Pizza Hut — Sales & Pizza Analysis</h3>
+          <div class="proj-desc-box">
+            SQL-driven analysis of Pizza Hut sales data uncovering top-selling pizza types, peak order hours, revenue by category, and monthly sales trends with a detailed PDF report.
+          </div>
+          <div class="proj-tags">
+            <span>MySQL</span><span>Sales Analysis</span><span>Reporting</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Harishdaga/projects/tree/main/mysql/pizza_sales/dataset" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://github.com/Harishdaga/projects/blob/main/mysql/pizza_sales/Brown%20Pizza%20Monthly%20Report%20(2).pdf" target="_blank" title="Report"><i class="bi bi-file-earmark-pdf"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience">
+    <h2 class="section-title fade-in"><span class="num">04.</span> Experience & Education</h2>
+    <div class="exp-edu-grid fade-in">
+      <div>
+        <p class="subsection-title">Experience</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="tl-date">Jan 2018 – Feb 2023</p>
+            <p class="tl-role">Project Supervisor</p>
+            <p class="tl-company">Siyaram Interiors, Coimbatore</p>
+            <ul class="tl-points">
+              <li>Handle project billing for clients and contractors</li>
+              <li>Manage site resources and workers</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <p class="tl-date">Aug 2016 – Nov 2017</p>
+            <p class="tl-role">Sales Supervisor</p>
+            <p class="tl-company">Bhiwandi, Maharashtra</p>
+            <ul class="tl-points">
+              <li>Manage factory raw materials and productions</li>
+              <li>Prepare sales bill and purchase bills</li>
+              <li>Manage product design department</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="subsection-title">Education</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="tl-date">2013 – 2016</p>
+            <p class="tl-role">B.Com</p>
+            <p class="tl-company">Maharaja Ganga Singh University, Bikaner</p>
+            <ul class="tl-points">
+              <li>Accounting and Business Development</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <h2 class="section-title fade-in"><span class="num">05.</span> Certificates</h2>
+    <div class="cert-grid fade-in">
+      <div class="cert-card">
+        <div class="cert-logo"><img src="assets/img/cert/datacamp_logo.png" alt="Datacamp" /></div>
+        <div class="cert-name">Data Analyst Associate</div>
+        <div class="cert-issuer">Datacamp</div>
+        <a href="https://www.datacamp.com/certificate/DAA0016213612316" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="cert-card">
+        <div class="cert-logo"><img src="assets/img/cert/datacamp_logo.png" alt="Datacamp" /></div>
+        <div class="cert-name">Associate SQL Certificate</div>
+        <div class="cert-issuer">Datacamp</div>
+        <a href="https://www.datacamp.com/certificate/SQA0010531843813" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="cert-card">
+        <div class="cert-logo"><img src="assets/img/cert/coursera_logo.jpg" alt="Coursera" /></div>
+        <div class="cert-name">Google Advanced Data Analytics</div>
+        <div class="cert-issuer">Coursera</div>
+        <a href="https://coursera.org/share/1817952ee27235700f45e2a3de6c6d7f" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="max-width:600px;margin:0 auto;text-align:center;padding:100px 24px;">
+    <p class="contact-overline fade-in">06. What's Next?</p>
+    <h2 class="contact-heading fade-in">Get In Touch</h2>
+    <p class="contact-desc fade-in">
+      I'm currently open to new opportunities. Whether you have a question, a project idea, or just want to say hi — my inbox is always open!
+    </p>
+    <a href="mailto:mrharishdaga@gmail.com" class="contact-email-btn fade-in">Say Hello</a>
+    <div class="contact-links fade-in">
+      <a href="https://github.com/Harishdaga" target="_blank"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/harishdaga" target="_blank"><i class="bi bi-linkedin"></i></a>
+      <a href="https://public.tableau.com/app/profile/harish.daga/vizzes" target="_blank"><i class="bi bi-bar-chart-fill"></i></a>
+      <a href="mailto:mrharishdaga@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed & Built by <a href="#">Harish Daga</a> &nbsp;|&nbsp; <i class="bi bi-geo-alt-fill"></i> Bikaner &nbsp;|&nbsp; <a href="tel:+916381127488">+91-6381127488</a></p>
+  </footer>
+
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

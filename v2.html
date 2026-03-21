@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harish Daga — Data Analyst</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --bg-card: #ffffff;
+      --primary: #2563eb;
+      --accent: #06b6d4;
+      --text: #1e293b;
+      --text-body: #64748b;
+      --border: #e2e8f0;
+      --nav-h: 68px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-body); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px;
+      box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 800; color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: var(--text-body); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-resume-btn {
+      padding: 8px 22px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50px; color: white;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.3px;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+    }
+    .nav-resume-btn:hover { opacity: 0.9; box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--primary); transition: 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      background: white; z-index: 999; flex-direction: column;
+      align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.2rem; color: var(--text); font-weight: 700; }
+    .mobile-menu a:hover { color: var(--primary); }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 40%, #0891b2 80%, #06b6d4 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: calc(var(--nav-h) + 40px) 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 50px;
+      padding: 8px 20px; font-size: 0.85rem; color: white;
+      margin-bottom: 28px; font-weight: 500;
+    }
+    .hero-badge i { color: #fbbf24; }
+    .hero-name {
+      font-size: clamp(40px, 7vw, 72px); font-weight: 800;
+      color: white; line-height: 1.05; letter-spacing: -2px; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: clamp(18px, 3vw, 26px); font-weight: 500;
+      color: rgba(255,255,255,0.85); margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 1rem; color: rgba(255,255,255,0.75);
+      max-width: 520px; margin: 0 auto 36px; line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      padding: 14px 32px; background: white; border-radius: 50px;
+      color: var(--primary); font-weight: 700; font-size: 0.9rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+    .btn-outline-white {
+      padding: 14px 32px; border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 50px; color: white; font-weight: 600; font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: white; }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.6); font-size: 1.4rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+    .hero-stats {
+      display: flex; gap: 40px; justify-content: center; margin-top: 48px; flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 2rem; font-weight: 800; color: white; display: block; }
+    .hero-stat .label { font-size: 0.78rem; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    section.light { background: var(--bg); }
+    section.alt { background: var(--bg-alt); }
+    .section-wrap { padding: 100px 0; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-label {
+      display: inline-block; font-size: 0.78rem; font-weight: 700;
+      color: var(--primary); letter-spacing: 2px; text-transform: uppercase;
+      background: rgba(37,99,235,0.08); padding: 6px 16px; border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: var(--text); }
+    .section-desc { font-size: 1rem; color: var(--text-body); max-width: 500px; margin: 12px auto 0; }
+
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-img-wrap { position: relative; }
+    .about-img-frame {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(37,99,235,0.15);
+      position: relative;
+    }
+    .about-img-frame img { width: 100%; display: block; }
+    .about-img-frame::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(37,99,235,0.1), transparent);
+      border-radius: 20px;
+    }
+    .about-badge-floating {
+      position: absolute; bottom: -16px; right: -16px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; padding: 14px 20px; border-radius: 12px;
+      font-size: 0.8rem; font-weight: 700; text-align: center;
+      box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+    }
+    .about-badge-floating .big { display: block; font-size: 1.6rem; font-weight: 800; }
+    .about-text { }
+    .about-text h3 { font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 16px; line-height: 1.2; }
+    .about-text p { margin-bottom: 16px; font-size: 0.97rem; line-height: 1.8; }
+    .about-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .about-pill {
+      padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+      background: rgba(37,99,235,0.08); color: var(--primary);
+      border: 1px solid rgba(37,99,235,0.15);
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .skill-card {
+      background: white; border-radius: 16px; padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(37,99,235,0.12); }
+    .skill-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .skill-icon-wrap {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(6,182,212,0.08));
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(37,99,235,0.1);
+    }
+    .skill-icon-wrap img { width: 36px; height: 36px; object-fit: contain; }
+    .skill-name { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-size: 0.73rem; padding: 4px 12px; border-radius: 50px;
+      background: var(--bg-alt); color: var(--text-body); font-weight: 500;
+      border: 1px solid var(--border);
+    }
+    .other-tools-row { display: flex; align-items: center; gap: 20px; margin-top: 28px; flex-wrap: wrap; }
+    .other-tools-row .label { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .tool-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 50px; border: 1px solid var(--border);
+      background: white; font-size: 0.85rem; color: var(--text-body); font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .tool-pill img { width: 20px; height: 20px; object-fit: contain; }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .proj-card {
+      background: white; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .proj-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(37,99,235,0.12); }
+    .proj-img { width: 100%; height: 180px; object-fit: cover; }
+    .proj-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .proj-category {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .proj-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+    .proj-desc { font-size: 0.85rem; color: var(--text-body); line-height: 1.7; flex: 1; }
+    .proj-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .proj-tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .proj-chip { font-size: 0.7rem; padding: 3px 10px; border-radius: 50px; background: rgba(37,99,235,0.06); color: var(--primary); font-weight: 600; }
+    .proj-actions { display: flex; gap: 12px; }
+    .proj-actions a { color: var(--text-body); font-size: 1rem; transition: color 0.2s; }
+    .proj-actions a:hover { color: var(--primary); }
+
+    /* ===== EXPERIENCE & EDUCATION ===== */
+    .exp-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    .col-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--text);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 32px;
+      padding-bottom: 12px; border-bottom: 2px solid var(--primary);
+    }
+    .col-title i { color: var(--primary); }
+    .timeline { }
+    .tl-item { display: flex; gap: 16px; margin-bottom: 32px; }
+    .tl-dot-col { display: flex; flex-direction: column; align-items: center; }
+    .tl-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      flex-shrink: 0; margin-top: 4px;
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+    }
+    .tl-line { flex: 1; width: 2px; background: var(--border); margin: 4px 0; }
+    .tl-content { flex: 1; }
+    .tl-date {
+      font-size: 0.73rem; font-weight: 700; color: var(--primary);
+      background: rgba(37,99,235,0.06); border-radius: 50px;
+      padding: 3px 10px; display: inline-block; margin-bottom: 8px;
+    }
+    .tl-role { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .tl-company { font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+    .tl-points { list-style: none; }
+    .tl-points li { font-size: 0.85rem; padding: 3px 0 3px 16px; position: relative; color: var(--text-body); }
+    .tl-points li::before { content: '•'; position: absolute; left: 0; color: var(--primary); }
+
+    /* ===== CERTIFICATES ===== */
+    .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cert-card {
+      background: white; border-radius: 16px; padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .cert-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(37,99,235,0.1); }
+    .cert-logo img { height: 32px; object-fit: contain; }
+    .cert-name { font-size: 0.97rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .cert-issuer { font-size: 0.8rem; color: var(--text-body); }
+    .cert-link {
+      margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: var(--primary);
+      transition: gap 0.2s;
+    }
+    .cert-link:hover { gap: 10px; }
+
+    /* ===== CONTACT ===== */
+    .contact-box {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #0891b2);
+      border-radius: 24px; padding: 64px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .contact-box h2 { font-size: 2.2rem; font-weight: 800; color: white; margin-bottom: 16px; position: relative; }
+    .contact-box p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 440px; margin: 0 auto 36px; position: relative; }
+    .contact-info-row { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 36px; position: relative; }
+    .contact-info-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9); font-size: 0.9rem; }
+    .contact-info-item i { color: rgba(255,255,255,0.6); }
+    .contact-socials { display: flex; justify-content: center; gap: 16px; position: relative; }
+    .contact-socials a {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .contact-socials a:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; padding: 28px; font-size: 0.8rem; color: var(--text-body); border-top: 1px solid var(--border); }
+    footer a { color: var(--primary); }
+
+    /* ===== FADE IN ===== */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links, .nav-resume-btn { display: none; }
+      .hamburger { display: flex; }
+      .container { padding: 0 24px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img-wrap { max-width: 300px; margin: 0 auto; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-edu-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">Harish Daga</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="harish_daga_resume.pdf" class="nav-resume-btn" target="_blank">Resume</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+    <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+    <a href="#experience" onclick="closeMobileMenu()">Experience</a>
+    <a href="#certificates" onclick="closeMobileMenu()">Certificates</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    <a href="harish_daga_resume.pdf" target="_blank">Resume</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge fade-in"><i class="bi bi-star-fill"></i> Available for opportunities</div>
+      <h1 class="hero-name fade-in">Harish Daga</h1>
+      <p class="hero-title fade-in">Data Analyst · Tableau · SQL · Python</p>
+      <p class="hero-desc fade-in">Turning raw data into clear insights. I build dashboards, run analyses, and tell data stories that help businesses make better decisions.</p>
+      <div class="hero-cta fade-in">
+        <a href="#projects" class="btn-white">View My Work</a>
+        <a href="harish_daga_resume.pdf" class="btn-outline-white" target="_blank">Download Resume</a>
+      </div>
+      <div class="hero-stats fade-in">
+        <div class="hero-stat"><span class="num">3+</span><span class="label">Projects</span></div>
+        <div class="hero-stat"><span class="num">3</span><span class="label">Certificates</span></div>
+        <div class="hero-stat"><span class="num">5+</span><span class="label">Years Work Exp</span></div>
+      </div>
+    </div>
+    <a href="#about" class="hero-scroll"><i class="bi bi-chevron-down"></i></a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="light">
+    <div class="container">
+      <div class="section-wrap" id="about">
+        <div class="about-grid fade-in">
+          <div class="about-img-wrap">
+            <div class="about-img-frame">
+              <img src="assets/img/profile-img2.png" alt="Harish Daga" />
+            </div>
+            <div class="about-badge-floating">
+              <span class="big">DA</span>
+              Data Analyst
+            </div>
+          </div>
+          <div class="about-text">
+            <div class="section-label">About Me</div>
+            <h3>Hi, I'm <span style="color:var(--primary)">Harish Daga</span></h3>
+            <p>A Data Analyst based in <strong>Bikaner</strong> with a passion for making data meaningful. I help organizations discover the story behind their numbers and translate complexity into clarity.</p>
+            <p>I specialize in Data Preparation & Visualization, Data Analysis & Reporting, Data Quality Management, Business Intelligence, and Statistical Analysis — with hands-on experience in Machine Learning.</p>
+            <p>My technical stack includes <strong>Tableau, PostgreSQL, Python</strong>, and Excel — tools I use daily to build dashboards and derive actionable insights.</p>
+            <div class="about-pills">
+              <span class="about-pill">Tableau</span>
+              <span class="about-pill">PostgreSQL</span>
+              <span class="about-pill">Python</span>
+              <span class="about-pill">Excel</span>
+              <span class="about-pill">Power Query</span>
+              <span class="about-pill">Machine Learning</span>
+              <span class="about-pill">Statistics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-wrap" id="skills">
+        <div class="section-header fade-in">
+          <div class="section-label">Technical Skills</div>
+          <h2 class="section-title">My Toolbox</h2>
+          <p class="section-desc">Tools and technologies I work with to extract, analyze and visualize data.</p>
+        </div>
+        <div class="skills-grid fade-in">
+          <div class="skill-card">
+            <div class="skill-header">
+              <div class="skill-icon-wrap"><img src="assets/img/skills/tableau.svg" width="36" height="36" alt="Tableau" /></div>
+              <div class="skill-name">Tableau</div>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Data Modelling</span><span class="skill-tag">Visualization</span>
+              <span class="skill-tag">Parameters</span><span class="skill-tag">Table Calculations</span>
+              <span class="skill-tag">LODs</span><span class="skill-tag">Dynamic Zone Visibility</span>
+              <span class="skill-tag">Tableau × Figma</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-header">
+              <div class="skill-icon-wrap"><img src="assets/img/skills/postgresql.svg" width="36" height="36" alt="PostgreSQL" /></div>
+              <div class="skill-name">PostgreSQL</div>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">DDL</span><span class="skill-tag">DML</span><span class="skill-tag">DQL</span>
+              <span class="skill-tag">Stored Procedures</span><span class="skill-tag">Window Functions</span>
+              <span class="skill-tag">Data Analysis</span><span class="skill-tag">pgAdmin</span><span class="skill-tag">TablePlus</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-header">
+              <div class="skill-icon-wrap"><img src="assets/img/skills/excel.svg" width="36" height="36" alt="Excel" /></div>
+              <div class="skill-name">Excel</div>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Pivot Tables</span><span class="skill-tag">Power Query</span>
+              <span class="skill-tag">Visualization</span><span class="skill-tag">What-If Analysis</span>
+              <span class="skill-tag">Forecasting</span><span class="skill-tag">Statistical Analysis</span><span class="skill-tag">Dashboards</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-header">
+              <div class="skill-icon-wrap"><img src="assets/img/skills/python.svg" width="36" height="36" alt="Python" /></div>
+              <div class="skill-name">Python</div>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Data Structures</span><span class="skill-tag">OOP</span>
+              <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
+              <span class="skill-tag">Data Analysis</span><span class="skill-tag">Predictive Analysis</span>
+            </div>
+          </div>
+        </div>
+        <div class="other-tools-row fade-in">
+          <span class="label">Other Tools:</span>
+          <div class="tool-pill"><img src="assets/img/skills/git.svg" width="20" height="20" alt="Git" /> Git</div>
+          <div class="tool-pill"><img src="assets/img/skills/vscode.svg" width="20" height="20" alt="VS Code" /> VS Code</div>
+          <div class="tool-pill"><img src="assets/img/skills/jira.svg" width="20" height="20" alt="Jira" /> Jira</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="light">
+    <div class="container">
+      <div class="section-wrap" id="projects">
+        <div class="section-header fade-in">
+          <div class="section-label">Portfolio</div>
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-desc">A selection of data analysis and visualization projects I've built.</p>
+        </div>
+        <div class="projects-grid fade-in">
+          <div class="proj-card">
+            <img class="proj-img" src="assets/img/projects/netflix_deshboard.png" alt="Netflix Dashboard" />
+            <div class="proj-body">
+              <div class="proj-category">Tableau · Data Visualization</div>
+              <div class="proj-title">Netflix — Analysis of Movies & TV Shows</div>
+              <div class="proj-desc">Interactive dashboard analyzing Netflix's library — genre trends, geographic distribution, release patterns, and content ratings.</div>
+              <div class="proj-footer">
+                <div class="proj-tag-row"><span class="proj-chip">Tableau</span><span class="proj-chip">EDA</span></div>
+                <div class="proj-actions">
+                  <a href="https://github.com/Harishdaga/projects/tree/main/tableau/netflix_dashboard" target="_blank"><i class="bi bi-github"></i></a>
+                  <a href="https://public.tableau.com/views/NetflixAnalysis_17119029214180/Netflix" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <img class="proj-img" src="assets/img/projects/BritishAirwaysDeshboard.png" alt="British Airways" />
+            <div class="proj-body">
+              <div class="proj-category">Tableau · Customer Analytics</div>
+              <div class="proj-title">British Airways — Customer Reviews Analysis</div>
+              <div class="proj-desc">Dashboard analyzing customer reviews — seat ratings, food quality, entertainment scores, and satisfaction segmented by aircraft and route.</div>
+              <div class="proj-footer">
+                <div class="proj-tag-row"><span class="proj-chip">Tableau</span><span class="proj-chip">Dashboard</span></div>
+                <div class="proj-actions">
+                  <a href="https://github.com/Harishdaga/projects/tree/main/tableau/British%20Airways%20Reviews" target="_blank"><i class="bi bi-github"></i></a>
+                  <a href="https://public.tableau.com/views/BritishAirwaysReviewsAnalysis_17119793954210/Dashboard1" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-card">
+            <img class="proj-img" src="assets/img/projects/pizzahut.png" alt="Pizza Hut" />
+            <div class="proj-body">
+              <div class="proj-category">MySQL · Sales Analysis</div>
+              <div class="proj-title">Pizza Hut — Sales & Pizza Analysis</div>
+              <div class="proj-desc">SQL analysis uncovering top-selling pizzas, peak order hours, revenue by category, and monthly sales trends with a detailed report.</div>
+              <div class="proj-footer">
+                <div class="proj-tag-row"><span class="proj-chip">MySQL</span><span class="proj-chip">Reporting</span></div>
+                <div class="proj-actions">
+                  <a href="https://github.com/Harishdaga/projects/tree/main/mysql/pizza_sales/dataset" target="_blank"><i class="bi bi-github"></i></a>
+                  <a href="https://github.com/Harishdaga/projects/blob/main/mysql/pizza_sales/Brown%20Pizza%20Monthly%20Report%20(2).pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-wrap" id="experience">
+        <div class="section-header fade-in">
+          <div class="section-label">Background</div>
+          <h2 class="section-title">Experience & Education</h2>
+        </div>
+        <div class="exp-edu-grid fade-in">
+          <div>
+            <div class="col-title"><i class="bi bi-briefcase-fill"></i> Work Experience</div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <span class="tl-date">Jan 2018 – Feb 2023</span>
+                  <div class="tl-role">Project Supervisor</div>
+                  <div class="tl-company">Siyaram Interiors, Coimbatore</div>
+                  <ul class="tl-points">
+                    <li>Handle project billing for clients and contractors</li>
+                    <li>Manage site resources and workers</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot-col"><div class="tl-dot"></div></div>
+                <div class="tl-content">
+                  <span class="tl-date">Aug 2016 – Nov 2017</span>
+                  <div class="tl-role">Sales Supervisor</div>
+                  <div class="tl-company">Bhiwandi, Maharashtra</div>
+                  <ul class="tl-points">
+                    <li>Manage factory raw materials and productions</li>
+                    <li>Prepare sales bill and purchase bills</li>
+                    <li>Manage product design department</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="col-title"><i class="bi bi-mortarboard-fill"></i> Education</div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-dot-col"><div class="tl-dot"></div></div>
+                <div class="tl-content">
+                  <span class="tl-date">2013 – 2016</span>
+                  <div class="tl-role">B.Com</div>
+                  <div class="tl-company">Maharaja Ganga Singh University, Bikaner</div>
+                  <ul class="tl-points">
+                    <li>Accounting and Business Development</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section class="light">
+    <div class="container">
+      <div class="section-wrap" id="certificates">
+        <div class="section-header fade-in">
+          <div class="section-label">Credentials</div>
+          <h2 class="section-title">Certificates</h2>
+        </div>
+        <div class="cert-grid fade-in">
+          <div class="cert-card">
+            <div class="cert-logo"><img src="assets/img/cert/datacamp_logo.png" alt="Datacamp" /></div>
+            <div class="cert-name">Data Analyst Associate</div>
+            <div class="cert-issuer">Datacamp</div>
+            <a href="https://www.datacamp.com/certificate/DAA0016213612316" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-logo"><img src="assets/img/cert/datacamp_logo.png" alt="Datacamp" /></div>
+            <div class="cert-name">Associate SQL Certificate</div>
+            <div class="cert-issuer">Datacamp</div>
+            <a href="https://www.datacamp.com/certificate/SQA0010531843813" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="cert-card">
+            <div class="cert-logo"><img src="assets/img/cert/coursera_logo.jpg" alt="Coursera" /></div>
+            <div class="cert-name">Google Advanced Data Analytics</div>
+            <div class="cert-issuer">Coursera</div>
+            <a href="https://coursera.org/share/1817952ee27235700f45e2a3de6c6d7f" target="_blank" class="cert-link">View Certificate <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-wrap" id="contact">
+        <div class="contact-box fade-in">
+          <h2>Let's Work Together</h2>
+          <p>I'm open to new opportunities in data analytics. Have a project, a role, or just want to connect? Reach out!</p>
+          <div class="contact-info-row">
+            <div class="contact-info-item"><i class="bi bi-envelope-fill"></i> mrharishdaga@gmail.com</div>
+            <div class="contact-info-item"><i class="bi bi-telephone-fill"></i> +91-6381127488</div>
+            <div class="contact-info-item"><i class="bi bi-geo-alt-fill"></i> Bikaner</div>
+          </div>
+          <div class="contact-socials">
+            <a href="https://github.com/Harishdaga" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="https://www.linkedin.com/in/harishdaga" target="_blank"><i class="bi bi-linkedin"></i></a>
+            <a href="https://public.tableau.com/app/profile/harish.daga/vizzes" target="_blank"><i class="bi bi-bar-chart-fill"></i></a>
+            <a href="mailto:mrharishdaga@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by <a href="#">Harish Daga</a> &nbsp;&mdash;&nbsp; Data Analyst, Bikaner &nbsp;&mdash;&nbsp; <a href="tel:+916381127488">+91-6381127488</a></p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
