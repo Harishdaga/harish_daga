@@ -761,6 +761,99 @@
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── CURSOR SPOTLIGHT ──
+    const spotlight = document.createElement('div');
+    spotlight.style.cssText = `
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,0.10) 0%, rgba(236,72,153,0.05) 40%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+      top: 0; left: 0;
+    `;
+    document.body.appendChild(spotlight);
+
+    let mouseX = 0, mouseY = 0;
+    let spotX = 0, spotY = 0;
+
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    // Smooth follow with lerp
+    (function animateSpotlight() {
+      spotX += (mouseX - spotX) * 0.08;
+      spotY += (mouseY - spotY) * 0.08;
+      spotlight.style.left = spotX + 'px';
+      spotlight.style.top  = spotY + 'px';
+      requestAnimationFrame(animateSpotlight);
+    })();
+
+    // Hide spotlight when mouse leaves window
+    document.addEventListener('mouseleave', () => spotlight.style.opacity = '0');
+    document.addEventListener('mouseenter', () => spotlight.style.opacity = '1');
+
+    // ── SPARKLE TRAIL ──
+    const COLOURS = ['#a855f7','#ec4899','#c084fc','#f472b6','#818cf8','#ffffff'];
+    let lastSparkle = 0;
+
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastSparkle < 40) return; // throttle: 1 sparkle per 40ms
+      lastSparkle = now;
+
+      const count = Math.floor(Math.random() * 2) + 1;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('div');
+        const size = Math.random() * 8 + 4;
+        const colour = COLOURS[Math.floor(Math.random() * COLOURS.length)];
+        const angle = Math.random() * 360;
+        const dist  = Math.random() * 30 + 10;
+        const dx = Math.cos(angle * Math.PI / 180) * dist;
+        const dy = Math.sin(angle * Math.PI / 180) * dist;
+
+        s.style.cssText = `
+          position: fixed;
+          pointer-events: none;
+          z-index: 9998;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${e.clientX}px;
+          top: ${e.clientY}px;
+          border-radius: 50%;
+          background: ${colour};
+          box-shadow: 0 0 ${size * 2}px ${colour};
+          transform: translate(-50%, -50%);
+          transition: none;
+          opacity: 1;
+        `;
+        document.body.appendChild(s);
+
+        // Animate outward + fade
+        requestAnimationFrame(() => {
+          s.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+          s.style.transform  = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0)`;
+          s.style.opacity    = '0';
+        });
+
+        setTimeout(() => s.remove(), 650);
+      }
+    });
+
+    // ── MAGNETIC EFFECT on buttons & social icons ──
+    document.querySelectorAll('.btn-grad, .btn-glass, .nav-resume-btn, .hero-socials a, .contact-socials a').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r   = el.getBoundingClientRect();
+        const cx  = r.left + r.width  / 2;
+        const cy  = r.top  + r.height / 2;
+        const dx  = (e.clientX - cx) * 0.25;
+        const dy  = (e.clientY - cy) * 0.25;
+        el.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.4s ease';
+      });
+    });
   </script>
 </body>
 </html>
